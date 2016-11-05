@@ -1,38 +1,182 @@
-.dataview {
-	font-size: 8px;
-	font-family: Verdana;
+﻿$backgroundColor: white;
+$borderColor: lightGray;
+$gridColor: black;
+$popupColor: #ffffe0;
+
+/* ===================================================== */
+
+body {
+	font-size: 10pt;
+	background-color: $backgroundColor;
+}
+
+.caption {
+	font-weight: bold;
+}
+
+/* ========================================================
+MainView
+======================================================== */
+
+.mainview > button {
+	float: right
+}
+
+/* ========================================================
+TabControl
+======================================================== */
+
+.tabcontrol {
+	white-space: nowrap;
+	margin-bottom: 5px;
+}
+.tabcontrol_tab {
+	cursor: default;
+	margin-right: 10px;
+}
+.tabcontrol_tab:hover,
+.tabcontrol_tab__active {
+	text-decoration: underline;
+}
+
+/* ========================================================
+GridView
+======================================================== */
+
+.gridview {
+	display: flex;
+
+	.filters {
+		margin-right: 10px;
+	}
+}
+
+/* ========================================================
+Filters
+======================================================== */
+
+.filters label {
+	display: block;
+	margin: 5px 0;
+}
+.filters_searchStats {
+	margin-top: 8px;
+}
+
+/* ========================================================
+Grid
+======================================================== */
+
+.grid_content {
 	display: flex;
 	align-items: flex-end;
 	flex-wrap: wrap;
 }
 
-.dataview_section {
+.grid_section {
 	margin: 10px 10px 0 0;
 	display: flex;
 	flex-direction: column;
 }
 
-.dataview_floor {
+.grid_floor {
 	display: flex;
+	font: 9px normal Verdana;
+	line-height: 1.5;
 }
 
-.dataview_floorNumber {
-	border: 1px solid black;
+.grid_floorNumber {
+	border: 1px solid $gridColor;
 	margin: -1px -1px 0 0;
 	background: gainsboro;
+	box-sizing: border-box;
 	width: 15px;
-	height: 10px;
+	height: 14px;
 	text-align: center;
 }
 
-.dataview_apartment {
-	border: 1px solid black;
+.grid_apartment {
+	border: 1px solid $gridColor;
 	margin: -1px -1px 0 0;
-	width: 25px;
-	height: 10px;
+	box-sizing: border-box;
+	width: 28px;
+	height: 14px;
 	text-align: center;
+	cursor: default;
+}
+.grid_apartment:hover {
+	text-decoration: underline;
 }
 
-.dataview_apartment__withOriginalNumber {
+.grid_apartment__withOriginalNumber {
 	font-style: italic;
+}
+
+.grid_apartment__duplicate {
+	background: #f1a7b3;
+}
+.grid_apartment__search {
+	background: #a7f1a7;
+}
+.grid_apartment__duplicate.grid_apartment__search {
+	background: #d0a7f1;
+}
+
+.grid_apartment__selectedRecord {
+	border-left-width: 5px;
+}
+
+/* ========================================================
+ApartmentPopup
+======================================================== */
+
+.apartmentpopup {
+	position: absolute;
+	background: $popupColor;
+	border: 1px solid $gridColor;
+	padding: 2px 4px;
+	white-space: nowrap;
+	display: none;
+}
+
+/* ========================================================
+SqlView
+======================================================== */
+
+.sqlview_wrapper {
+	position: relative;
+	margin-bottom: 10px;
+}
+.sqlview_controls {
+	display: inline-block;
+}
+.sqlview_btnExample {
+	float: right;
+}
+.sqlview_schema {
+	margin-left: 10px;
+	display: inline-flex;
+	flex-direction: column;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+}
+.sqlview_schema pre {
+	margin-top: 0;
+	border: 1px solid $borderColor;
+	padding: 2px 5px 2px 2px;
+	overflow: auto;
+	font-family: inherit;
+}
+.sqlview_messages {
+	white-space: pre;
+	font-family: monospace;
+}
+.sqlview table {
+	margin-top: 10px;
+	border-collapse: collapse;
+}
+.sqlview td {
+	border: 1px solid $gridColor;
+	min-width: 5px;
 }
