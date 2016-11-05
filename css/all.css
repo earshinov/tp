@@ -1,0 +1,32 @@
+.dataview {
+  font-size: 8px;
+  font-family: Verdana;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap; }
+
+.dataview_section {
+  margin: 10px 10px 0 0;
+  display: flex;
+  flex-direction: column; }
+
+.dataview_floor {
+  display: flex; }
+
+.dataview_floorNumber {
+  border: 1px solid black;
+  margin: -1px -1px 0 0;
+  background: gainsboro;
+  width: 15px;
+  height: 10px;
+  text-align: center; }
+
+.dataview_apartment {
+  border: 1px solid black;
+  margin: -1px -1px 0 0;
+  width: 25px;
+  height: 10px;
+  text-align: center; }
+
+.dataview_apartment__withOriginalNumber {
+  font-style: italic; }
