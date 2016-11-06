@@ -173,3 +173,13 @@ SqlView
 .sqlview td {
   border: 1px solid black;
   min-width: 5px; }
+
+/* ========================================================
+DataView
+======================================================== */
+.dataview_sources li {
+  margin: 5px 0; }
+
+.dataview_sources label {
+  display: block;
+  margin: 5px 0; }
