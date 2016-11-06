@@ -54,8 +54,9 @@ GridView
 	display: flex;
 }
 .gridview_sidebar {
-	flex: 0;
 	margin-right: 10px;
+	max-width: 25em;
+	min-width: 25em;
 }
 .gridview_sidebar > * {
 	margin-bottom: 10px;
