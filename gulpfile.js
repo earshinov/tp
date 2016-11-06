@@ -67,3 +67,11 @@ gulp.task("watch-css", watchCss);
 
 gulp.task("build", ["build-js", "build-css"]);
 gulp.task("dev", ["watch-js", "watch-css"]);
+
+function deploy() {
+	gulp.src(["data/*.csv", "index.html", "css/*.css", "app.js", "lib/*.js"], { base: "." })
+		.pipe(gulp.dest("deploy"))
+		.pipe(logDest())
+		.on("error", handleError);
+}
+gulp.task("deploy", ["build"], deploy);
