@@ -1,10 +1,12 @@
+@charset "UTF-8";
 /* ===================================================== */
 body {
   font-size: 10pt;
   background-color: white; }
 
 .caption {
-  font-weight: bold; }
+  font-weight: bold;
+  margin: 5px 0; }
 
 /* ========================================================
 MainView
@@ -32,8 +34,13 @@ GridView
 ======================================================== */
 .gridview {
   display: flex; }
-  .gridview .filters {
-    margin-right: 10px; }
+
+.gridview_sidebar {
+  flex: 0;
+  margin-right: 10px; }
+
+.gridview_sidebar > * {
+  margin-bottom: 10px; }
 
 /* ========================================================
 Filters
@@ -44,6 +51,23 @@ Filters
 
 .filters_searchStats {
   margin-top: 8px; }
+
+/* ========================================================
+RecordInfo
+======================================================== */
+.recordinfo_close {
+  font-weight: normal;
+  cursor: default; }
+  .recordinfo_close:before {
+    content: '✗'; }
+
+.recordinfo_source {
+  margin: 5px 0;
+  white-space: pre;
+  max-height: 30em;
+  border: 1px solid lightGray;
+  padding: 2px 5px 2px 2px;
+  overflow: auto; }
 
 /* ========================================================
 Grid
