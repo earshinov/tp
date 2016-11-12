@@ -8,8 +8,9 @@ body {
   font-weight: bold;
   margin: 5px 0; }
 
-.updateDate {
-  float: right; }
+.info {
+  float: right;
+  text-align: right; }
 
 /* ========================================================
 MainView
