@@ -2,14 +2,17 @@
 /* ===================================================== */
 body {
   font-size: 10pt;
-  background-color: white; }
+  background-color: white;
+  position: relative; }
 
 .caption {
   font-weight: bold;
   margin: 5px 0; }
 
 .info {
-  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
   text-align: right; }
 
 /* ========================================================

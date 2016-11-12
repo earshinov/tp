@@ -14,6 +14,7 @@ $popupColor: #ffffe0;
 body {
 	font-size: 10pt;
 	background-color: $backgroundColor;
+	position: relative;
 }
 
 .caption {
@@ -22,7 +23,8 @@ body {
 }
 
 .info {
-	float: right;
+	position: absolute;
+	top: 0; right: 0;
 	text-align: right;
 }
 
