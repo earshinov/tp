@@ -69,7 +69,7 @@ gulp.task("build", ["build-js", "build-css"]);
 gulp.task("dev", ["watch-js", "watch-css"]);
 
 function deploy() {
-	gulp.src(["data/*.csv", "index.html", "css/*.css", "app.js", "lib/*.js"], { base: "." })
+	gulp.src(["data/*.csv", "index.html", "css/*.css", "app.js", "lib/*.js", "**/web.config"], { base: "." })
 		.pipe(gulp.dest("deploy"))
 		.pipe(logDest())
 		.on("error", handleError);
