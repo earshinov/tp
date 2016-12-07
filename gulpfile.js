@@ -2,6 +2,7 @@
 
 var browserify = require("browserify");
 var scss = require("gulp-sass");
+var zip = require("gulp-zip");
 var gulp = require("gulp");
 var multipipe = require("multipipe");
 var through2 = require("through2");
@@ -70,7 +71,8 @@ gulp.task("dev", ["watch-js", "watch-css"]);
 
 function deploy() {
 	gulp.src(["data/*.csv", "index.html", "css/*.css", "app.js", "lib/*.js", "**/web.config"], { base: "." })
-		.pipe(gulp.dest("deploy"))
+		.pipe(zip("deploy.zip"))
+		.pipe(gulp.dest("."))
 		.pipe(logDest())
 		.on("error", handleError);
 }
