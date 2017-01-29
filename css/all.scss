@@ -88,7 +88,6 @@ RecordInfo
 .recordinfo_close {
 	font-weight: normal;
 	cursor: default;
-	&:before { content: '✗'; }
 }
 .recordinfo_source {
 	margin: 5px 0;
@@ -119,6 +118,10 @@ Grid
 	line-height: 1.5;
 }
 
+.grid_floor__NonResidentialPremise {
+	flex-wrap: wrap;
+}
+
 .grid_floorNumber {
 	border: 1px solid $gridColor;
 	margin: -1px -1px 0 0;
@@ -129,7 +132,7 @@ Grid
 	text-align: center;
 }
 
-.grid_apartment {
+.grid_object {
 	border: 1px solid $gridColor;
 	margin: -1px -1px 0 0;
 	box-sizing: border-box;
@@ -138,33 +141,33 @@ Grid
 	text-align: center;
 	cursor: default;
 }
-.grid_apartment:hover {
+.grid_object:hover {
 	text-decoration: underline;
 }
 
-.grid_apartment__withOriginalNumber {
+.grid_object__withOriginalNumber {
 	font-style: italic;
 }
 
-.grid_apartment__duplicate {
+.grid_object__duplicate {
 	background: #f1a7b3;
 }
-.grid_apartment__search {
+.grid_object__search {
 	background: #a7f1a7;
 }
-.grid_apartment__duplicate.grid_apartment__search {
+.grid_object__duplicate.grid_object__search {
 	background: #d0a7f1;
 }
 
-.grid_apartment__selectedRecord {
+.grid_object__selectedRecord {
 	border-left-width: 5px;
 }
 
 /* ========================================================
-ApartmentPopup
+ObjectPopup
 ======================================================== */
 
-.apartmentpopup {
+.objectpopup {
 	position: absolute;
 	background: $popupColor;
 	border: 1px solid $gridColor;
