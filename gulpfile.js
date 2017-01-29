@@ -14,6 +14,7 @@ var browserifyOpts = {
 	entries: ["node_modules/app/main.js"],
 	debug: true,
 	verbose: true,
+	transform: [["babelify", { presets: ["es2015"] }]],
 };
 
 function logDest() {
