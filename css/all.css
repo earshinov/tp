@@ -51,13 +51,13 @@ GridView
   margin-bottom: 10px; }
 
 /* ========================================================
-Filters
+SearchView
 ======================================================== */
-.filters label {
+.searchview label {
   display: block;
   margin: 5px 0; }
 
-.filters_searchStats {
+.searchview_searchStats {
   margin-top: 8px; }
 
 /* ========================================================
