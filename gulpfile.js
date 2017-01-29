@@ -2,6 +2,7 @@
 
 var browserify = require("browserify");
 var scss = require("gulp-sass");
+var gutil = require("gulp-util");
 var zip = require("gulp-zip");
 var gulp = require("gulp");
 var multipipe = require("multipipe");
@@ -23,8 +24,14 @@ function logDest() {
 }
 
 function handleError(error) {
-	console.log(error.messageFormatted || error.message);
+	log(formatError(error));
 	this.end();
+}
+function log() {
+	gutil.log.apply(gutil, arguments);
+}
+function formatError(error) {
+	return error.messageFormatted || error.message;
 }
 
 function processJs() {
@@ -45,6 +52,9 @@ function watchJs() {
 	b.on("update", bundle);
 	function bundle() {
 		return b.bundle()
+			.on("error", function(error) {
+				log("Browserify error:", formatError(error));
+			})
 			.pipe(processJs());
 	}
 	return bundle();

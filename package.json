@@ -12,6 +12,7 @@
     "browserify": "^13.1.0",
     "gulp": "^3.9.1",
     "gulp-sass": "^2.3.2",
+    "gulp-util": "^3.0.7",
     "gulp-zip": "^3.2.0",
     "multipipe": "^1.0.1",
     "through2": "^2.0.1",
