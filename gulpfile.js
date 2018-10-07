@@ -1,7 +1,5 @@
 /* jshint node: true */
 
-var path = require("path");
-
 var browserSync = require("browser-sync");
 var scss = require("gulp-sass");
 var gutil = require("gulp-util");
@@ -9,6 +7,7 @@ var zip = require("gulp-zip");
 var gulp = require("gulp");
 var through2 = require("through2");
 var webpack = require("webpack-stream");
+var webpackConfig = require("./webpack.config");
 
 // ========================================================
 // Helpers - logging
@@ -96,37 +95,11 @@ gulp.task("browser-sync", initBrowserSync);
 // JS
 // ========================================================
 
-var WEBPACK_CONFIG = {
-	devtool: "source-map",
-	resolve: {
-		alias: {
-			"app": path.resolve(__dirname, "app")
-		}
-	},
-	module: {
-		rules: [
-			{
-				test: /\.js$/,
-				exclude: /node_modules/,
-				use: {
-					loader: 'babel-loader',
-					options: {
-						presets: ['@babel/preset-env'],
-					}
-				}
-			},
-		]
-	},
-	output: {
-		filename: "app.js",
-	},
-};
-
 function buildJs(/* optional */ webpackStreamConfig) {
 	return function() {
 		var stream = prepStream(gulp.src(["app/main.js"], { base: "." }))
 			.pipe(prepWebpackStream(webpack(Object.assign({
-				config: WEBPACK_CONFIG,
+				config: webpackConfig,
 				quiet: true,
 			}, webpackStreamConfig))))
 			.pipe(prepStream(gulp.dest(".")))
