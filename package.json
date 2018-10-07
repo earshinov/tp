@@ -17,12 +17,12 @@
     "gulp-sass": "^2.3.2",
     "gulp-util": "^3.0.7",
     "gulp-zip": "^3.2.0",
-    "multipipe": "^1.0.1",
     "through2": "^2.0.1",
     "webpack": "^4.20.2",
     "webpack-stream": "^5.1.1"
   },
   "dependencies": {
+    "browser-sync": "^2.26.0",
     "csv": "^1.1.0",
     "csv-parse": "^1.1.7"
   }

@@ -2,11 +2,11 @@
 
 var path = require("path");
 
+var browserSync = require("browser-sync");
 var scss = require("gulp-sass");
 var gutil = require("gulp-util");
 var zip = require("gulp-zip");
 var gulp = require("gulp");
-var multipipe = require("multipipe");
 var through2 = require("through2");
 var webpack = require("webpack-stream");
 
@@ -14,9 +14,10 @@ var webpack = require("webpack-stream");
 // Helpers - logging
 // ========================================================
 
-function logDest() {
+function logDest(prefix /* = "->" */) {
 	return through2.obj(function(file, enc, cb) {
-		log("-> " + file.path);
+		log((prefix ? prefix + " " : "-> ") + file.path);
+		this.push(file);
 		cb();
 	});
 }
@@ -73,6 +74,25 @@ function prepWebpackStream(s /* : stream */) {
 }
 
 // ========================================================
+// BrowserSync
+// ========================================================
+
+var bs = null;
+
+var DEBOUNCE_TIMEOUT = 400;
+
+function initBrowserSync() {
+	bs = browserSync.create();
+	bs.init({
+		// https://browsersync.io/docs/options
+		port: 3086,
+		server: ".",
+		reloadDelay: DEBOUNCE_TIMEOUT,
+	});
+}
+gulp.task("browser-sync", initBrowserSync);
+
+// ========================================================
 // JS
 // ========================================================
 
@@ -104,13 +124,19 @@ var WEBPACK_CONFIG = {
 
 function buildJs(/* optional */ webpackStreamConfig) {
 	return function() {
-		return prepStream(gulp.src(["app/main.js"], { base: "." }))
+		var stream = prepStream(gulp.src(["app/main.js"], { base: "." }))
 			.pipe(prepWebpackStream(webpack(Object.assign({
 				config: WEBPACK_CONFIG,
 				quiet: true,
 			}, webpackStreamConfig))))
 			.pipe(prepStream(gulp.dest(".")))
 			.pipe(prepStream(logDest()));
+		if (bs) {
+			stream = stream
+				.pipe(bs.stream())
+				.pipe(prepStream(logDest("**")));
+		}
+		return stream;
 	};
 }
 gulp.task("watch-js", buildJs({ watch: true }));
@@ -121,12 +147,16 @@ gulp.task("build-js", buildJs());
 // ========================================================
 
 function buildCss() {
-	return multipipe(
-		gulp.src("css/*.scss", { base: "." }),
-		scss(),
-		gulp.dest("."),
-		logDest()
-	).on("error", handleError);
+	var stream = prepStream(gulp.src("css/*.scss", { base: "." }))
+		.pipe(prepStream(scss()))
+		.pipe(prepStream(gulp.dest(".")))
+		.pipe(prepStream(logDest()));
+	if (bs) {
+		stream = stream
+			.pipe(bs.stream())
+			.pipe(prepStream(logDest("**")));
+	}
+	return stream;
 }
 function watchCss() {
 	return gulp.watch("css/*.scss", buildCss);
@@ -137,7 +167,7 @@ gulp.task("watch-css", watchCss);
 // ========================================================
 
 gulp.task("build", ["build-js", "build-css"]);
-gulp.task("dev", ["watch-js", "watch-css"]);
+gulp.task("dev", ["browser-sync", "watch-js", "watch-css"]);
 
 function deploy() {
 	gulp.src(["data/*.csv", "index.html", "css/*.css", "app.js", "lib/*.js", "**/web.config"], { base: "." })
