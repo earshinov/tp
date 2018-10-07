@@ -19,7 +19,7 @@
     "gulp-zip": "^3.2.0",
     "multipipe": "^1.0.1",
     "through2": "^2.0.1",
-    "webpack": "^3.10.0",
+    "webpack": "^4.20.2",
     "webpack-stream": "^5.1.1"
   },
   "dependencies": {
