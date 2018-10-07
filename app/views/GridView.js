@@ -1,4 +1,4 @@
-var View = require("app/views/View");
+import View from "app/views/View";
 
 class GridView extends View {
 	constructor(model) {
@@ -34,14 +34,14 @@ class GridView extends View {
 }
 
 GridView.isSupportedObject = function(obj) {
-	return obj instanceof m.Apartment || obj instanceof m.NonResidentialPremise;
+	return obj instanceof Apartment || obj instanceof NonResidentialPremise;
 };
 
-module.exports = GridView;
+export default GridView;
 
-var Grid = require("app/views/Grid");
-var SearchView = require("app/views/SearchView");
-var SearchModel = require("app/model/SearchModel");
-var RecordSelectionModel = require("app/model/RecordSelectionModel");
-var RecordInfo = require("app/views/RecordInfo");
-var m = require("app/model/ModelClasses");
+import Grid from "app/views/Grid";
+import SearchView from "app/views/SearchView";
+import SearchModel from "app/model/SearchModel";
+import RecordSelectionModel from "app/model/RecordSelectionModel";
+import RecordInfo from "app/views/RecordInfo";
+import { Apartment, NonResidentialPremise } from "app/model/ModelClasses";

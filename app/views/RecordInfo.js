@@ -1,4 +1,4 @@
-var View = require("app/views/View");
+import View from "app/views/View";
 
 class RecordInfo extends View {
 	constructor(recordSelectionModel) {
@@ -35,26 +35,26 @@ class RecordInfo extends View {
 	}
 }
 
-module.exports = RecordInfo;
+export default RecordInfo;
 
-var utils = require("app/utils");
-var m = require("app/model/ModelClasses");
-var s = require("app/Strings");
+import { htmlEncode } from "app/utils";
+import { ParticipantsRegistryRecord, OwnersRegistryRecord } from "app/model/ModelClasses";
+import { Cross } from "app/Strings";
 
 function render(record, acc) {
-	acc.push(`<div class='caption'>Информация о записи <span class='recordinfo_close'>${s.Cross}</span></div>`);
-	acc.push(utils.htmlEncode(record.type));
+	acc.push(`<div class='caption'>Информация о записи <span class='recordinfo_close'>${Cross}</span></div>`);
+	acc.push(htmlEncode(record.type));
 	acc.push(", №");
-	acc.push(utils.htmlEncode(record.number.toString()));
+	acc.push(htmlEncode(record.number.toString()));
 	acc.push("<br/>");
 
-	if (record instanceof m.ParticipantsRegistryRecord) {
+	if (record instanceof ParticipantsRegistryRecord) {
 		acc.push("<div class='recordinfo_source'>");
-		acc.push(utils.htmlEncode(record.source));
+		acc.push(htmlEncode(record.source));
 		acc.push("</div>");
 	}
-	else if (record instanceof m.OwnersRegistryRecord)
-		acc.push(utils.htmlEncode(record.owner));
+	else if (record instanceof OwnersRegistryRecord)
+		acc.push(htmlEncode(record.owner));
 	else
 		throw new Error("Неизвестный тип записи: " + record.constructor.name);
 }

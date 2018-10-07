@@ -1,4 +1,4 @@
-var View = require("app/views/View");
+import View from "app/views/View";
 
 var Example = `
 SELECT r.source
@@ -23,7 +23,7 @@ class SqlView extends View {
 					</div>
 					<div class="sqlview_schema">
 						<div class="caption">Схема:</div>
-						<pre>${utils.htmlEncode(SqlModel.Schema)}</pre>
+						<pre>${htmlEncode(SqlModel.Schema)}</pre>
 					</div>
 				</div>
 				<div id="${this.uid + "_messages"}" class="sqlview_messages"></div>
@@ -87,10 +87,10 @@ class SqlView extends View {
 	}
 }
 
-module.exports = SqlView;
+export default SqlView;
 
-var utils = require("app/utils");
-var SqlModel = require("app/model/SqlModel");
+import SqlModel from "app/model/SqlModel";
+import { htmlEncode } from "app/utils";
 
 function renderDataset(dataset, acc) {
 	if (dataset.length == 0) {
@@ -105,7 +105,7 @@ function renderDataset(dataset, acc) {
 			acc.push("<td>");
 			var value = row[j];
 			if (value != null)
-				acc.push(utils.htmlEncode(row[j].toString()));
+				acc.push(htmlEncode(row[j].toString()));
 		}
 	}
 	acc.push("</table>");

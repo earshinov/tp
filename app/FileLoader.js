@@ -21,4 +21,4 @@ class FileLoader {
 	}
 }
 
-module.exports = FileLoader;
+export default FileLoader;

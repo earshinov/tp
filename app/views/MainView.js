@@ -1,4 +1,4 @@
-var View = require("app/views/View");
+import View from "app/views/View";
 
 class MainView extends View
 {
@@ -63,10 +63,10 @@ var Tab = {
 MainView.instance = null;
 MainView.Tab = Tab;
 
-module.exports = MainView;
+export default MainView;
 
-var TabControl = require("app/views/TabControl");
-var DataView = require("app/views/DataView");
-var GridView = require("app/views/GridView");
-var SqlView = require("app/views/SqlView");
-var PopupManager = require("app/views/PopupManager");
+import TabControl from "app/views/TabControl";
+import DataView from "app/views/DataView";
+import GridView from "app/views/GridView";
+import SqlView from "app/views/SqlView";
+import PopupManager from "app/views/PopupManager";

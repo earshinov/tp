@@ -1,4 +1,4 @@
-var View = require("app/views/View");
+import View from "app/views/View";
 
 class ObjectPopup extends View {
 	getHtml() {
@@ -30,45 +30,45 @@ class ObjectPopup extends View {
 		if (top + h > window.scrollY + window.innerHeight && top - h > window.scrollY)
 			$el.css("top", top - h);
 
-		MainView.instance.popupManager.registerPopup($el[0]);
+		instance.popupManager.registerPopup($el[0]);
 	}
 	hide() {
 		this.$element().hide();
 	}
 }
 
-module.exports = ObjectPopup;
+export default ObjectPopup;
 
-var utils = require("app/utils");
-var s = require("app/Strings");
-var m = require("app/model/ModelClasses");
-var MainView = require("app/views/MainView");
+import { htmlEncode } from "app/utils";
+import { Unknown, formatDate } from "app/Strings";
+import { OwnersRegistryRecord } from "app/model/ModelClasses";
+import { instance } from "app/views/MainView";
 
 function render(obj, acc) {
-	acc.push(utils.htmlEncode(obj.type));
+	acc.push(htmlEncode(obj.type));
 	acc.push(" №");
 	if (obj.originalNumber != null) {
 		acc.push("<span class='objectpopup_withOriginalNumber'>");
-		acc.push(utils.htmlEncode(obj.number.toString()));
+		acc.push(htmlEncode(obj.number.toString()));
 		acc.push("</span>");
 		acc.push(" (");
-		acc.push(utils.htmlEncode(obj.originalNumber.toString()));
+		acc.push(htmlEncode(obj.originalNumber.toString()));
 		acc.push(")");
 	}
 	else
-		acc.push(utils.htmlEncode(obj.number.toString()));
+		acc.push(htmlEncode(obj.number.toString()));
 	acc.push("<br>");
 
 	acc.push("Корпус ");
-	acc.push(utils.htmlEncode(obj.building.toString()));
+	acc.push(htmlEncode(obj.building.toString()));
 	acc.push(", секция ");
-	acc.push(obj.section == null ? s.Unknown : utils.htmlEncode(obj.section.toString()));
+	acc.push(obj.section == null ? Unknown : htmlEncode(obj.section.toString()));
 	acc.push(", этаж ");
-	acc.push(obj.floor == null ? s.Unknown : utils.htmlEncode(obj.floor.toString()));
+	acc.push(obj.floor == null ? Unknown : htmlEncode(obj.floor.toString()));
 	acc.push("<br>");
 
 	acc.push("Номер на площадке ");
-	acc.push(obj.landingNumber == null ? s.Unknown : utils.htmlEncode(obj.landingNumber.toString()));
+	acc.push(obj.landingNumber == null ? Unknown : htmlEncode(obj.landingNumber.toString()));
 	acc.push("<br>");
 
 	acc.push("Площадь ");
@@ -77,11 +77,11 @@ function render(obj, acc) {
 	acc.push("<br>");
 
 	acc.push(obj.record.type);
-	acc.push(obj.record instanceof m.OwnersRegistryRecord ? ",<br>" : ", ");
+	acc.push(obj.record instanceof OwnersRegistryRecord ? ",<br>" : ", ");
 	acc.push("запись №");
-	acc.push(utils.htmlEncode(obj.record.number.toString()));
+	acc.push(htmlEncode(obj.record.number.toString()));
 	acc.push("<br>");
 
 	acc.push("Дата регистрации ");
-	acc.push(obj.record.date == null ? s.Unknown : utils.htmlEncode(s.formatDate(obj.record.date)));
+	acc.push(obj.record.date == null ? Unknown : htmlEncode(formatDate(obj.record.date)));
 }

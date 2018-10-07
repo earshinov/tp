@@ -2,17 +2,17 @@
 // JS
 // ====================================================
 
-function parseInt(value) {
+export function parseInt(value) {
 	value = window.parseInt(value, 10);
 	return isNaN(value) ? null : value;
 }
 
-function parseFloat(value) {
+export function parseFloat(value) {
 	value = window.parseFloat(value);
 	return isNaN(value) ? null : value;
 }
 
-function parseDate(value) {
+export function parseDate(value) {
 	var date = new Date(value);
 	return isNaN(date.getTime()) ? null : date;
 }
@@ -21,7 +21,7 @@ function parseDate(value) {
 // Arrays
 // ====================================================
 
-var Arrays = {
+export var Arrays = {
 
 	clone: function(a) {
 		return a.slice(0);
@@ -46,7 +46,7 @@ var Arrays = {
 // Strings
 // ====================================================
 
-function cutString(s, maxLength, ellipsis /* = "..." */) {
+export function cutString(s, maxLength, ellipsis /* = "..." */) {
 	if (ellipsis === undefined)
 		ellipsis = "...";
 	return s.length <= maxLength ? s : s.substring(0, maxLength) + ellipsis;
@@ -56,7 +56,7 @@ function cutString(s, maxLength, ellipsis /* = "..." */) {
 // HTML
 // ====================================================
 
-function htmlEncode(s) {
+export function htmlEncode(s) {
 	return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
@@ -64,7 +64,7 @@ function htmlEncode(s) {
 // DOM
 // ====================================================
 
-function createFromHtml(html) {
+export function createFromHtml(html) {
 	var div = document.createElement("div");
 	div.innerHTML = html;
 	if (div.children.length != 1)
@@ -77,7 +77,7 @@ function createFromHtml(html) {
 // ====================================================
 
 // http://translate.sourceforge.net/wiki/l10n/pluralforms
-function plural(n, /* optional */ a) {
+export function plural(n, /* optional */ a) {
 	n = (n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2);
 	return a === undefined ? n : a[n];
 }
@@ -86,7 +86,7 @@ function plural(n, /* optional */ a) {
 // Delegate
 // ====================================================
 
-class Delegate {
+export class Delegate {
 	constructor() {
 		this.handlers = [];
 		this._mute = 0;
@@ -119,22 +119,3 @@ class Delegate {
 		return this.handlers.length;
 	}
 }
-
-// ====================================================
-
-module.exports = {
-	// JS
-	parseInt, parseFloat, parseDate,
-	// Arrays
-	Arrays,
-	// Strings
-	cutString,
-	// HTML
-	htmlEncode,
-	// DOM
-	createFromHtml,
-	// L18N
-	plural,
-	// Delegate
-	Delegate,
-};

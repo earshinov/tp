@@ -1,4 +1,4 @@
-var View = require("app/views/View");
+import View from "app/views/View";
 
 class SearchView extends View {
 	constructor(model, searchModel) {
@@ -76,7 +76,7 @@ class SearchView extends View {
 				}
 				if (filters.number != null && !(obj.number == filters.number || obj.originalNumber == filters.number)) continue;
 				if (filters.objectsCountGe != null && obj.record.objects.length < filters.objectsCountGe) continue;
-				if (filters.apartmentsCountGe != null && obj.record.objects.filter(obj => obj instanceof m.Apartment).length < filters.apartmentsCountGe) continue;
+				if (filters.apartmentsCountGe != null && obj.record.objects.filter(obj => obj instanceof Apartment).length < filters.apartmentsCountGe) continue;
 
 				ids.push(obj.id);
 				recordIds[obj.record.id] = true;
@@ -105,7 +105,7 @@ class SearchView extends View {
 		if (!recordNumber)
 			recordNumber = null;
 		else {
-			recordNumber = utils.parseInt(recordNumber);
+			recordNumber = parseInt(recordNumber);
 			if (recordNumber == null)
 				$recordNumber.addClass("error");
 		}
@@ -116,7 +116,7 @@ class SearchView extends View {
 		if (!dateFrom)
 			dateFrom = null;
 		else {
-			dateFrom = utils.parseDate(dateFrom);
+			dateFrom = parseDate(dateFrom);
 			if (dateFrom == null)
 				$dateFrom.addClass("error");
 		}
@@ -125,7 +125,7 @@ class SearchView extends View {
 		if (!dateTo)
 			dateTo = null;
 		else {
-			dateTo = utils.parseDate(dateTo);
+			dateTo = parseDate(dateTo);
 			if (dateTo == null)
 				$dateTo.addClass("error");
 		}
@@ -136,7 +136,7 @@ class SearchView extends View {
 		if (!number)
 			number = null;
 		else {
-			number = utils.parseInt(number);
+			number = parseInt(number);
 			if (number == null)
 				$number.addClass("error");
 		}
@@ -145,7 +145,7 @@ class SearchView extends View {
 		if (!objectsCountGe)
 			objectsCountGe = null;
 		else {
-			objectsCountGe = utils.parseInt(objectsCountGe);
+			objectsCountGe = parseInt(objectsCountGe);
 			if (objectsCountGe == null)
 				$objectsCountGe.addClass("error");
 		}
@@ -154,7 +154,7 @@ class SearchView extends View {
 		if (!apartmentsCountGe)
 			apartmentsCountGe = null;
 		else {
-			apartmentsCountGe = utils.parseInt(apartmentsCountGe);
+			apartmentsCountGe = parseInt(apartmentsCountGe);
 			if (apartmentsCountGe == null)
 				$apartmentsCountGe.addClass("error");
 		}
@@ -168,7 +168,7 @@ class SearchView extends View {
 		var apartmentsCount = 0;
 		for (var i = 0; i < objectIds.length; i++) {
 			var obj = this._model.getObjectById(objectIds[i]);
-			if (obj instanceof m.Apartment)
+			if (obj instanceof Apartment)
 				apartmentsCount++;
 		}
 
@@ -181,14 +181,14 @@ class SearchView extends View {
 		var $foundObjectsCount = $el.find("#" + this.uid + "_foundObjectsCount");
 		var $foundApartmentsCount = $el.find("#" + this.uid + "_foundApartmentsCount");
 		var $foundRecordsCount = $el.find("#" + this.uid + "_foundRecordsCount");
-		$foundObjectsCount.text(objectsCount + " " + utils.plural(objectsCount, ["объект", "объекта", "объектов"]));
-		$foundApartmentsCount.text(apartmentsCount + " " + utils.plural(apartmentsCount, ["квартира", "квартиры", "квартир"]));
-		$foundRecordsCount.text(recordsCount + " " + utils.plural(recordsCount, ["записи", "записях", "записях"]));
+		$foundObjectsCount.text(objectsCount + " " + plural(objectsCount, ["объект", "объекта", "объектов"]));
+		$foundApartmentsCount.text(apartmentsCount + " " + plural(apartmentsCount, ["квартира", "квартиры", "квартир"]));
+		$foundRecordsCount.text(recordsCount + " " + plural(recordsCount, ["записи", "записях", "записях"]));
 	}
 }
 
-module.exports = SearchView;
+export default SearchView;
 
-var m = require("app/model/ModelClasses");
-var utils = require("app/utils");
-var GridView = require("app/views/GridView");
+import { Apartment } from "app/model/ModelClasses";
+import { parseInt, parseDate, plural } from "app/utils";
+import GridView from "app/views/GridView";

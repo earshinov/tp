@@ -10,4 +10,4 @@ class AjaxLoader {
 	}
 }
 
-module.exports = AjaxLoader;
+export default AjaxLoader;

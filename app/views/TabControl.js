@@ -1,11 +1,11 @@
-var View = require("app/views/View");
+import View from "app/views/View";
 
 class TabControl extends View {
 	constructor() {
 		super();
 		this._tabs = [];
 		this._activeId = null;
-		this.onActiveIdChanged = new utils.Delegate();
+		this.onActiveIdChanged = new Delegate();
 	}
 	addTab(id, title) {
 		if (id == null)
@@ -34,7 +34,7 @@ class TabControl extends View {
 				${this._tabs.map(tab => `<span
 					class="tabcontrol_tab ${tab.id == this._activeId ? "tabcontrol_tab__active" : ""}"
 					id="${this.uid + "_tab-" + tab.id}">
-					${utils.htmlEncode(tab.title)}
+					${htmlEncode(tab.title)}
 				</span>`).join("")}
 			</div>
 		`;
@@ -53,6 +53,6 @@ class TabControl extends View {
 	}
 }
 
-module.exports = TabControl;
+export default TabControl;
 
-var utils = require("app/utils");
+import { Delegate, htmlEncode } from "app/utils";

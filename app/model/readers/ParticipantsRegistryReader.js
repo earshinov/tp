@@ -1,4 +1,4 @@
-var BaseCsvReader = require("app/model/readers/BaseCsvReader");
+import BaseCsvReader from "app/model/readers/BaseCsvReader";
 
 class ParticipantsRegistryReader extends BaseCsvReader {
 	constructor(model) {
@@ -24,7 +24,7 @@ class ParticipantsRegistryReader extends BaseCsvReader {
 		if (!recordNumber)
 			// не обрабатываем строки без номера записи
 			return;
-		recordNumber = Parsing.parseRecordNumber(recordNumber);
+		recordNumber = parseRecordNumber(recordNumber);
 
 		var source = record[1];
 		if (!source)
@@ -53,47 +53,47 @@ class ParticipantsRegistryReader extends BaseCsvReader {
 
 		var number = record[5];
 		// номер объекта опциональный для нежилых помещений
-		number = !number || number == "бн" ? null : Parsing.parseNumber(number);
+		number = !number || number == "бн" ? null : parseNumber(number);
 
-		var building = Parsing.parseBuilding(record[6]);
-		var area = Parsing.parseArea(record[9]);
+		var building = parseBuilding(record[6]);
+		var area = parseArea(record[9]);
 
 		if (type == "машиноместо") {
 			if (number == null)
 				throw new Error("Некорректный номер объекта: " + record[5]);
-			this._model.addObject(new m.ParkingPlace(modelRecord, number, building, area));
+			this._model.addObject(new ParkingPlace(modelRecord, number, building, area));
 			return;
 		}
 
 		var section = record[8];
 		// номер секции опциональный
-		section = !section || section == "нет" || section == "?" ? null : Parsing.parseSection(section);
+		section = !section || section == "нет" || section == "?" ? null : parseSection(section);
 
 		if (type == "неж пом" || type.search(/предприятие/i) >= 0 || type == "магазин" || type == "офис") {
-			this._model.addObject(new m.NonResidentialPremise(modelRecord, type, number, building, section, area));
+			this._model.addObject(new NonResidentialPremise(modelRecord, type, number, building, section, area));
 			return;
 		}
 
-		var floor = Parsing.parseFloor(record[7]);
+		var floor = parseFloor(record[7]);
 
 		if (number == null)
 			throw new Error("Некорректный номер объекта: " + record[5]);
 
 		var landingNumber = null;
-		this._model.addObject(new m.Apartment(modelRecord, type, number, building, floor, landingNumber, section, area));
+		this._model.addObject(new Apartment(modelRecord, type, number, building, floor, landingNumber, section, area));
 	}
 }
 
-module.exports = ParticipantsRegistryReader;
+export default ParticipantsRegistryReader;
 
-var utils = require("app/utils");
-var m = require("app/model/ModelClasses.js");
-var Parsing = require("app/model/readers/Parsing.js");
+import { parseInt } from "app/utils";
+import { ParkingPlace, NonResidentialPremise, Apartment, ParticipantsRegistryRecord } from "app/model/ModelClasses.js";
+import { parseRecordNumber, parseNumber, parseBuilding, parseArea, parseSection, parseFloor } from "app/model/readers/Parsing.js";
 
 class _Record {
 	constructor(recordNumber) {
 		this._source = [];
-		this._modelRecord = new m.ParticipantsRegistryRecord(recordNumber, null, null, null);
+		this._modelRecord = new ParticipantsRegistryRecord(recordNumber, null, null, null);
 	}
 	modelRecord() {
 		return this._modelRecord;
@@ -117,9 +117,9 @@ function extractRegistryInfo(source) {
 
 	var number = m[1];
 
-	var day = utils.parseInt(m[2]);
-	var month = utils.parseInt(m[3]);
-	var year = utils.parseInt(m[4]);
+	var day = parseInt(m[2]);
+	var month = parseInt(m[3]);
+	var year = parseInt(m[4]);
 	var date = new Date(year, month-1, day);
 
 	return { number, date };

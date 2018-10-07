@@ -1,4 +1,4 @@
-﻿var View = require("app/views/View");
+﻿import View from "app/views/View";
 
 class Grid extends View {
 	constructor(model, searchModel, recordSelectionModel) {
@@ -83,13 +83,13 @@ class Grid extends View {
 	}
 }
 
-module.exports = Grid;
+export default Grid;
 
-var utils = require("app/utils");
-var ObjectPopup = require("app/views/ObjectPopup");
-var GridView = require("app/views/GridView");
-var m = require("app/model/ModelClasses");
-var s = require("app/Strings");
+import { htmlEncode } from "app/utils";
+import ObjectPopup from "app/views/ObjectPopup";
+import GridView from "app/views/GridView";
+import { Apartment, NonResidentialPremise } from "app/model/ModelClasses";
+import { Unknown, Cross } from "app/Strings";
 
 function render(gridUid, objects, searchResults, acc) {
 	objects.sort(function(a, b) {
@@ -153,17 +153,17 @@ function render(gridUid, objects, searchResults, acc) {
 }
 
 function renderBuildingAndSectionInfo(lastBuilding, lastSection, acc) {
-	acc.push(`<div class='grid_sectionInfo'>Корпус ${lastBuilding} Секция ${lastSection == null ? s.Unknown : lastSection}</div>`);
+	acc.push(`<div class='grid_sectionInfo'>Корпус ${lastBuilding} Секция ${lastSection == null ? Unknown : lastSection}</div>`);
 }
 
 function renderFloorInfo(obj, acc) {
-	if (obj instanceof m.Apartment) {
+	if (obj instanceof Apartment) {
 		acc.push("<span class='grid_floorNumber'>");
-		acc.push(utils.htmlEncode(obj.floor.toString()));
+		acc.push(htmlEncode(obj.floor.toString()));
 		acc.push("</span>");
 	}
-	else if (obj instanceof m.NonResidentialPremise)
-		acc.push(`<span class='grid_floorNumber' title='Нежилые помещения'>${s.Cross}</span>`);
+	else if (obj instanceof NonResidentialPremise)
+		acc.push(`<span class='grid_floorNumber' title='Нежилые помещения'>${Cross}</span>`);
 }
 
 function renderObjectInfo(gridUid, obj, searchResults, acc) {
@@ -178,6 +178,6 @@ function renderObjectInfo(gridUid, obj, searchResults, acc) {
 
 	acc.push(`<div class="${cssClasses}" id="${gridUid + "_obj-" + obj.id}">`);
 	if (obj.number != null)
-		acc.push(utils.htmlEncode(obj.number.toString()));
+		acc.push(htmlEncode(obj.number.toString()));
 	acc.push("</div>");
 }

@@ -1,10 +1,10 @@
-﻿class Record {
+﻿export class Record {
 	constructor() {
 		this.id = null; // assigned by Model
 	}
 }
 
-class ParticipantsRegistryRecord extends Record {
+export class ParticipantsRegistryRecord extends Record {
 	constructor(number, registryNumber, date, source) {
 		super();
 		this.number = number;
@@ -16,7 +16,7 @@ class ParticipantsRegistryRecord extends Record {
 }
 ParticipantsRegistryRecord.prototype.type = "ЕГРП";
 
-class OwnersRegistryRecord extends Record {
+export class OwnersRegistryRecord extends Record {
 	constructor(number, owner) {
 		super();
 		this.number = number;
@@ -26,14 +26,14 @@ class OwnersRegistryRecord extends Record {
 OwnersRegistryRecord.prototype.type = "Реестр собственников долей";
 
 
-class Obj {
+export class Obj {
 	constructor(record) {
 		this.id = null; // assigned by Model
 		this.record = record;
 	}
 }
 
-class ParkingPlace extends Obj {
+export class ParkingPlace extends Obj {
 	constructor(record, number, building, area) {
 		super(record);
 		this.number = number;
@@ -42,7 +42,7 @@ class ParkingPlace extends Obj {
 	}
 }
 
-class Apartment extends Obj {
+export class Apartment extends Obj {
 	constructor(record, type, number, building, floor, landingNumber, section, area) {
 		super(record);
 		this.type = type;
@@ -63,7 +63,7 @@ class Apartment extends Obj {
 	}
 }
 
-class NonResidentialPremise extends Obj {
+export class NonResidentialPremise extends Obj {
 	constructor(record, type, number, building, section, area) {
 		super(record);
 		this.type = type;
@@ -73,8 +73,3 @@ class NonResidentialPremise extends Obj {
 		this.area = area;
 	}
 }
-
-module.exports = {
-	Record, ParticipantsRegistryRecord, OwnersRegistryRecord,
-	Obj, ParkingPlace, Apartment, NonResidentialPremise,
-};

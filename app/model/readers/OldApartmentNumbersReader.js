@@ -1,4 +1,4 @@
-var BaseCsvReader = require("app/model/readers/BaseCsvReader");
+import BaseCsvReader from "app/model/readers/BaseCsvReader";
 
 class OldApartmentNumbersReader extends BaseCsvReader {
 	constructor(model) {
@@ -11,7 +11,7 @@ class OldApartmentNumbersReader extends BaseCsvReader {
 	_processRecord(record) {
 
 		for (var i = 0, c = record.length; i < c; i++) {
-			record[i] = utils.parseInt(record[i]);
+			record[i] = parseInt(record[i]);
 			if (record[i] == null)
 				throw new Error("Значения должны быть числовыми");
 		}
@@ -28,7 +28,7 @@ class OldApartmentNumbersReader extends BaseCsvReader {
 		var updates = 0;
 		for (var i = 0, c = objects.length; i < c; i++) {
 			var obj = objects[i];
-			if (obj instanceof m.Apartment &&
+			if (obj instanceof Apartment &&
 				obj.section >= sectionGe && obj.section <= sectionLe &&
 				obj.floor >= floorGe && obj.floor <= floorLe &&
 				obj.number >= numberGe && obj.number <= numberLe)
@@ -42,7 +42,7 @@ class OldApartmentNumbersReader extends BaseCsvReader {
 	}
 }
 
-module.exports = OldApartmentNumbersReader;
+export default OldApartmentNumbersReader;
 
-var utils = require("app/utils");
-var m = require("app/model/ModelClasses");
+import { parseInt } from "app/utils";
+import { Apartment } from "app/model/ModelClasses";

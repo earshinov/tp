@@ -1,4 +1,4 @@
-var BaseCsvReader = require("app/model/readers/BaseCsvReader");
+import BaseCsvReader from "app/model/readers/BaseCsvReader";
 
 class ApartmentsWithoutSectionReader extends BaseCsvReader {
 	constructor(model) {
@@ -10,23 +10,23 @@ class ApartmentsWithoutSectionReader extends BaseCsvReader {
 	// @override
 	_processRecord(record) {
 
-		var section = Parsing.parseSection(record[0]);
-		var floor = Parsing.parseFloor(record[1]);
-		var number = Parsing.parseNumber(record[2]);
-		var recordNumber = Parsing.parseRecordNumber(record[3]);
+		var section = parseSection(record[0]);
+		var floor = parseFloor(record[1]);
+		var number = parseNumber(record[2]);
+		var recordNumber = parseRecordNumber(record[3]);
 
 		var objects = this._model.objects;
 		var foundObject = null;
 		for (var i = 0, c = objects.length; i < c; i++) {
 			var obj = objects[i];
-			if (obj instanceof m.Apartment &&
+			if (obj instanceof Apartment &&
 				obj.floor == floor &&
 				obj.number == number &&
 				obj.section == null &&
 				obj.record.number == recordNumber) {
 
 				var _record = obj.record;
-				if (!(_record instanceof m.ParticipantsRegistryRecord))
+				if (!(_record instanceof ParticipantsRegistryRecord))
 					throw new Error("Найденная запись имеет некорректный тип: " + _record.type);
 
 				if (foundObject != null)
@@ -40,7 +40,7 @@ class ApartmentsWithoutSectionReader extends BaseCsvReader {
 	}
 }
 
-module.exports = ApartmentsWithoutSectionReader;
+export default ApartmentsWithoutSectionReader;
 
-var m = require("app/model/ModelClasses");
-var Parsing = require("app/model/readers/Parsing");
+import { Apartment, ParticipantsRegistryRecord } from "app/model/ModelClasses";
+import { parseSection, parseFloor, parseNumber, parseRecordNumber } from "app/model/readers/Parsing";

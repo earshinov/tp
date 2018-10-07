@@ -1,6 +1,6 @@
-module.exports = View;
+export default View;
 
-var utils = require("app/utils");
+import { Delegate, createFromHtml, Arrays } from "app/utils";
 
 // ========================================================
 
@@ -12,7 +12,7 @@ function View() {
 	this.children = [];
 
 	// delegates
-	this.onDestroy = new utils.Delegate();
+	this.onDestroy = new Delegate();
 
 	View.views[this.uid] = this;
 }
@@ -33,7 +33,7 @@ View.prototype.addChild = function(child) {
 };
 
 View.prototype.install = function($parent) {
-	var element = utils.createFromHtml(this.getHtml());
+	var element = createFromHtml(this.getHtml());
 	$parent.append(element);
 	this.onInstalled($(element), $parent);
 };
@@ -53,7 +53,7 @@ View.prototype.onInstalled = function(/* optional */ $element, /* optional */ $c
 		this._$element[0].style.display = "none";
 
 	// when a view is installed, usually its children are also installed
-	var children = utils.Arrays.clone(this.children);
+	var children = Arrays.clone(this.children);
 	for (var i = 0, c = children.length; i < c; i++)
 		children[i].onInstalled(undefined, this._$element);
 };
@@ -69,7 +69,7 @@ View.prototype.getHtml = function() {
 View.prototype.redraw = function() {
 	var $el = this.$element();
 	if ($el.length) {
-		var el = utils.createFromHtml(this.getHtml());
+		var el = createFromHtml(this.getHtml());
 		$el.replaceWith(el);
 		this.onInstalled($(el));
 	}

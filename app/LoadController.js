@@ -20,8 +20,8 @@ class LoadController {
 		this._fileLoader = new FileLoader();
 
 		this._opCounter = 0;
-		this.onOperationStart = new utils.Delegate();
-		this.onOperationEnd = new utils.Delegate();
+		this.onOperationStart = new Delegate();
+		this.onOperationEnd = new Delegate();
 	}
 
 	// load default data
@@ -125,18 +125,18 @@ class LoadController {
 	}
 }
 
-module.exports = LoadController;
+export default LoadController;
 
-var utils = require("app/utils");
-var AjaxLoader = require("app/AjaxLoader");
-var FileLoader = require("app/FileLoader");
-var Model = require("app/model/Model");
-var ParticipantsRegistryReader = require("app/model/readers/ParticipantsRegistryReader");
-var OwnersRegistryReader = require("app/model/readers/OwnersRegistryReader");
-var ApartmentsWithoutSectionReader = require("app/model/readers/ApartmentsWithoutSectionReader");
-var IncorrectApartmentsReader = require("app/model/readers/IncorrectApartmentsReader");
-var OldApartmentNumbersReader = require("app/model/readers/OldApartmentNumbersReader");
-var JuridicalPersonsReader = require("app/model/readers/JuridicalPersonsReader");
+import { Delegate } from "app/utils";
+import AjaxLoader from "app/AjaxLoader";
+import FileLoader from "app/FileLoader";
+import Model from "app/model/Model";
+import ParticipantsRegistryReader from "app/model/readers/ParticipantsRegistryReader";
+import OwnersRegistryReader from "app/model/readers/OwnersRegistryReader";
+import ApartmentsWithoutSectionReader from "app/model/readers/ApartmentsWithoutSectionReader";
+import IncorrectApartmentsReader from "app/model/readers/IncorrectApartmentsReader";
+import OldApartmentNumbersReader from "app/model/readers/OldApartmentNumbersReader";
+import JuridicalPersonsReader from "app/model/readers/JuridicalPersonsReader";
 
 function read(dataDescription, data, reader) /* -> Deferred */ {
 	var d = $.Deferred();

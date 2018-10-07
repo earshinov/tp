@@ -1,7 +1,7 @@
 class SearchModel {
 	constructor() {
 		this._ids = [];
-		this.onChanged = new utils.Delegate();
+		this.onChanged = new Delegate();
 	}
 	setObjectIds(value) {
 		if (this._ids.length == 0 && value.length == 0) {
@@ -16,6 +16,6 @@ class SearchModel {
 	}
 }
 
-module.exports = SearchModel;
+export default SearchModel;
 
-var utils = require("app/utils");
+import { Delegate } from "app/utils";

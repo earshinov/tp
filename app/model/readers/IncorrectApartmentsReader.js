@@ -1,4 +1,4 @@
-var BaseCsvReader = require("app/model/readers/BaseCsvReader");
+import BaseCsvReader from "app/model/readers/BaseCsvReader";
 
 class IncorrectApartmentsReader extends BaseCsvReader {
 	constructor(model) {
@@ -10,14 +10,14 @@ class IncorrectApartmentsReader extends BaseCsvReader {
 	// @override
 	_processRecord(record) {
 
-		var recordNumber = Parsing.parseRecordNumber(record[0]);
-		var number = Parsing.parseNumber(record[1]);
+		var recordNumber = parseRecordNumber(record[0]);
+		var number = parseNumber(record[1]);
 
 		var objects = this._model.objects;
 		var foundObject = null;
 		for (var i = 0, c = objects.length; i < c; i++) {
 			var obj = objects[i];
-			if (obj instanceof m.Apartment &&
+			if (obj instanceof Apartment &&
 				obj.record.number == recordNumber &&
 				obj.number == number) {
 
@@ -32,8 +32,8 @@ class IncorrectApartmentsReader extends BaseCsvReader {
 	}
 }
 
-module.exports = IncorrectApartmentsReader;
+export default IncorrectApartmentsReader;
 
-var m = require("app/model/ModelClasses");
-var Parsing = require("app/model/readers/Parsing");
+import { Apartment } from "app/model/ModelClasses";
+import { parseRecordNumber, parseNumber } from "app/model/readers/Parsing";
 

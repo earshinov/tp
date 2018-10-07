@@ -75,9 +75,9 @@ class SqlModel {
 
 SqlModel.Schema = Schema;
 
-module.exports = SqlModel;
+export default SqlModel;
 
-var m = require("app/model/ModelClasses");
+import { ParkingPlace as _ParkingPlace, Apartment as _Apartment, NonResidentialPremise } from "app/model/ModelClasses";
 
 function globalInit() {
 	alasql.options.casesensitive = "false";
@@ -99,13 +99,13 @@ function loadModel(db, model) {
 	var Record = model.records;
 
 	var ParkingPlace = model.objects.filter(function(obj) {
-		return obj instanceof m.ParkingPlace;
+		return obj instanceof _ParkingPlace;
 	});
 	var Apartment = model.objects.filter(function(obj) {
-		return obj instanceof m.Apartment;
+		return obj instanceof _Apartment;
 	});
 	var NRPremise = model.objects.filter(function(obj) {
-		return obj instanceof m.NonResidentialPremise;
+		return obj instanceof NonResidentialPremise;
 	});
 
 	db.exec(`

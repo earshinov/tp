@@ -6,6 +6,4 @@ class CsvError extends Error {
 	}
 }
 
-module.exports = CsvError;
-
-var utils = require("app/utils");
+export default CsvError;

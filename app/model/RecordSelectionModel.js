@@ -1,7 +1,7 @@
 class RecordSelectionModel {
 	constructor() {
 		this._record = null;
-		this.onChanged = new utils.Delegate();
+		this.onChanged = new Delegate();
 	}
 	setRecord(/* optional */ record) {
 		if (record == this._record) return;
@@ -16,6 +16,6 @@ class RecordSelectionModel {
 	}
 }
 
-module.exports = RecordSelectionModel;
+export default RecordSelectionModel;
 
-var utils = require("app/utils");
+import { Delegate } from "app/utils";

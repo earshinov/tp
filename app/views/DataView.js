@@ -1,4 +1,4 @@
-var View = require("app/views/View");
+import View from "app/views/View";
 
 class DataView extends View {
 	constructor(loadController) {
@@ -90,11 +90,11 @@ class DataView extends View {
 	}
 }
 
-module.exports = DataView;
+export default DataView;
 
-var utils = require("app/utils");
+import { htmlEncode } from "app/utils";
 
 function renderLink(url) {
 	var filename = url.substring(url.lastIndexOf("/") + 1);
-	return `<a href="${url}" target="_blank">${utils.htmlEncode(filename)}</a>`;
+	return `<a href="${url}" target="_blank">${htmlEncode(filename)}</a>`;
 }

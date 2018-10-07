@@ -4,7 +4,7 @@
 		this.objects = [];
 		this._objectsById = {};
 		this.sqlModel = new SqlModel();
-		this.onChanged = new utils.Delegate();
+		this.onChanged = new Delegate();
 	}
 	addRecord(record) {
 		this.records.push(record);
@@ -17,7 +17,7 @@
 	// ====================================================
 
 	removeObject(object) {
-		utils.Arrays.removeFirst(this.objects, object);
+		Arrays.removeFirst(this.objects, object);
 	}
 
 	// ====================================================
@@ -71,18 +71,18 @@
 	}
 }
 
-module.exports = Model;
+export default Model;
 
-var utils = require("app/utils");
-var SqlModel = require("app/model/SqlModel");
-var m = require("app/model/ModelClasses");
+import { Delegate, Arrays } from "app/utils";
+import SqlModel from "app/model/SqlModel";
+import { Apartment } from "app/model/ModelClasses";
 
 function searchDuplicates(objects) {
 	var map = {};
 
 	for (var i = 0, c = objects.length; i < c; i++) {
 		var obj = objects[i];
-		if (!(obj instanceof m.Apartment) || obj.section == null)
+		if (!(obj instanceof Apartment) || obj.section == null)
 			continue;
 
 		var dup = optionallyInsert(

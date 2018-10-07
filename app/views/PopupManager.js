@@ -21,4 +21,4 @@ class PopupManager {
 	}
 }
 
-module.exports = PopupManager;
+export default PopupManager;

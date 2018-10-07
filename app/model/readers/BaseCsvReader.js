@@ -8,7 +8,7 @@ class BaseCsvReader {
 	read(csv, callback) {
 		var me = this;
 
-		var readable = new stream.Readable();
+		var readable = new Readable();
 		readable.push(csv);
 		readable.push(null);
 
@@ -50,8 +50,8 @@ class BaseCsvReader {
 	}
 }
 
-module.exports = BaseCsvReader;
+export default BaseCsvReader;
 
-var parse = require("csv-parse");
-var stream = require("stream");
-var CsvError = require("app/exceptions/CsvError");
+import parse from "csv-parse";
+import { Readable } from "stream";
+import CsvError from "app/exceptions/CsvError";

@@ -1,4 +1,4 @@
-var View = require("app/views/View");
+import View from "app/views/View";
 
 class IncompatibleBrowserView extends View
 {
@@ -11,4 +11,4 @@ class IncompatibleBrowserView extends View
 	}
 }
 
-module.exports = IncompatibleBrowserView;
+export default IncompatibleBrowserView;

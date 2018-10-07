@@ -1,4 +1,4 @@
-var BaseCsvReader = require("app/model/readers/BaseCsvReader");
+import BaseCsvReader from "app/model/readers/BaseCsvReader";
 
 class JuridicalPersonsReader extends BaseCsvReader {
 	constructor(model) {
@@ -16,7 +16,7 @@ class JuridicalPersonsReader extends BaseCsvReader {
 		var records = this._model.records;
 		for (var i = 0, c = records.length; i < c; i++) {
 			var record = records[i];
-			if (record instanceof m.ParticipantsRegistryRecord)
+			if (record instanceof ParticipantsRegistryRecord)
 				extractOwner(record, this._searchStrings);
 		}
 	}
@@ -35,6 +35,6 @@ function extractOwner(record, juridicalPersonsSearchStrings) {
 }
 
 
-module.exports = JuridicalPersonsReader;
+export default JuridicalPersonsReader;
 
-var m = require("app/model/ModelClasses");
+import { ParticipantsRegistryRecord } from "app/model/ModelClasses";

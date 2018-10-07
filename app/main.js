@@ -1,9 +1,9 @@
-require("app/polyfills");
+import "app/polyfills";
 
-var MainView = require("app/views/MainView");
-var IncompatibleBrowserView = require("app/views/IncompatibleBrowserView");
-var Model = require("app/model/Model");
-var LoadController = require("app/LoadController");
+import MainView from "app/views/MainView";
+import IncompatibleBrowserView from "app/views/IncompatibleBrowserView";
+import Model from "app/model/Model";
+import LoadController from "app/LoadController";
 
 $(checkBrowser() ? main : incompatibleBrowser);
 
